@@ -1,0 +1,41 @@
+{
+    "name": "wpint/framework",
+    "description": "This is a framework for wordpress plugin development",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "WPINT\\Framework\\": "src/"
+        },
+        "files": [
+            "./helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Ali Barzegar Rahimi"
+        }
+    ],
+    "require": {
+        "illuminate/database": "^10.26",
+        "illuminate/events": "^10.26",
+        "illuminate/config": "^10.26",
+        "vlucas/phpdotenv": "^5.5",
+        "symfony/var-dumper": "^6.3",
+        "wp-cli/wp-cli-bundle": "^2.8",
+        "illuminate/filesystem": "^10.35",
+        "symfony/dotenv": "^6.3",
+        "firebase/php-jwt": "^6.9",
+        "illuminate/http": "^10.32",
+        "illuminate/view": "^10.35",
+        "illuminate/cache": "^10.35",
+        "fakerphp/faker": "^1.23",
+        "illuminate/validation": "^10.39",
+        "wpint/contracts": "@dev",
+        "wpint/route": "@dev",
+        "wpint/wpapi": "@dev",
+        "wpint/support": "@dev",
+        "wpint/jwt": "@dev"
+    }
+    
+}
