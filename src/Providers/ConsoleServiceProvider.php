@@ -17,6 +17,11 @@ class ConsoleServiceProvider extends ServiceProvider
         // nothing yet
     }
 
+    /**
+     * boot method
+     *
+     * @return void
+     */
     public function boot() : void
     {
         $cli = $this->app->make('cli');

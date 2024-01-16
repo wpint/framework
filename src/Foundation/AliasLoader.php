@@ -1,5 +1,4 @@
 <?php
-
 namespace WPINT\Framework\Foundation;
 
 class AliasLoader
