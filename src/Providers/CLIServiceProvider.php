@@ -1,6 +1,7 @@
 <?php 
 namespace WPINT\Framework\Providers;
 
+use Illuminate\Support\Facades\File;
 use WPINT\Framework\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use WP_CLI;

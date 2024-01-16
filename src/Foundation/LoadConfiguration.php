@@ -37,6 +37,7 @@ class LoadConfiguration
 
         if (! isset($loadedFromCache)) {
             $this->loadConfigurationFiles($app, $config);
+            $this->mergeDefaultConfigs($app);
         }
 
 
@@ -65,6 +66,7 @@ class LoadConfiguration
         foreach ($files as $key => $path) {
             $repository->set($key, require $path);
         }
+
     }
 
     /**
@@ -106,5 +108,23 @@ class LoadConfiguration
         }
 
         return $nested;
+    }
+
+    /**
+     * Merge default framework's configuration files.
+     *
+     * @return void
+     */
+    protected function mergeDefaultConfigs(Application $app)
+    {
+
+        $framework_config_path = __DIR__ . "/../Config"; 
+        $files = array_keys($this->getConfigurationFiles($app));
+        for ($i=0; $i < count($files); $i++) { 
+            $config_file_data = file_exists($framework_config_path . "/" . $files[$i] . ".php") ? require_once $framework_config_path . "/" . $files[$i] . ".php" : [];
+            if($config_file_data) 
+                config()->set($files[$i], array_merge_recursive(config($files[$i]), $config_file_data));
+        }
+
     }
 }

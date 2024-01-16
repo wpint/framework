@@ -13,7 +13,8 @@
     },
     "authors": [
         {
-            "name": "Ali Barzegar Rahimi"
+            "name": "Ali Barzegar Rahimi",
+            "email": "ali.barzegar.rahimi@gmail.com"
         }
     ],
     "require": {
@@ -31,11 +32,11 @@
         "illuminate/cache": "^10.35",
         "fakerphp/faker": "^1.23",
         "illuminate/validation": "^10.39",
-        "wpint/contracts": "@dev",
-        "wpint/route": "@dev",
-        "wpint/wpapi": "@dev",
-        "wpint/support": "@dev",
-        "wpint/jwt": "@dev"
+        "wpint/contracts": "^1.0.0",
+        "wpint/route": "^1.0.0",
+        "wpint/wpapi": "^1.0.0",
+        "wpint/support": "^1.0.0",
+        "wpint/jwt": "^1.0.0"
     }
     
 }
