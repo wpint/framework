@@ -3,7 +3,7 @@ namespace WPINT\Framework\Providers;
 
 use WPINT\Framework\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Support\ServiceProvider;
+use WPINT\Framework\ServiceProvider;
 
 class RequestServiceProvider extends ServiceProvider
 {

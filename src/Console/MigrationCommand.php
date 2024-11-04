@@ -5,33 +5,26 @@ use Wpint\Support\Facades\CLI;
 use Wpint\Support\Facades\Migration;
 
 class MigrationCommand extends Command
-{
-
-    public string $command = 'migrate';
+{   
 
     /**
-     * command logic
+     * Command base name
      *
-     * @param [type] $args
-     * @param [type] $assoc_args
-     * @return void
+     * @var string
      */
-    public function handle($args, $assoc_args)
-    {
-        if($args)
-            $this->{$args[0]}(); 
-    }
+    public string $command = 'migrate';
 
     /**
      * migrate up
      *
      * @return void
      */
+    #[SubCommandAttribute]
     private function up()
     {
-        CLI::log("droping the tables ....");
+        CLI::log("Creating the tables ....");
         Migration::up();
-        CLI::success("Tables has created successfuly.");
+        CLI::success("The tables has been created successfuly.");
     }
     
     /**
@@ -40,11 +33,12 @@ class MigrationCommand extends Command
      *
      * @return void
      */
+    #[SubCommandAttribute]
     private function down()
     {
         CLI::log("Removing the tables ....");
         Migration::down();
-        CLI::success("Tables has removed successfuly.");
+        CLI::success("the tables has been removed successfuly.");
     }
 
     /**
@@ -52,11 +46,12 @@ class MigrationCommand extends Command
      *
      * @return void
      */
+    #[SubCommandAttribute]
     private function refresh()
     {
         CLI::log("Refreshing the database ....");
         Migration::refresh();
-        CLI::success("Your database has cleaned successfuly.");
+        CLI::success("the database has been cleaned successfuly.");
     }
 
 }       

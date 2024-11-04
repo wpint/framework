@@ -1,6 +1,8 @@
 <?php 
 namespace WPINT\Framework\Include\Controller;
 
+use WPINT\Framework\Include\Middleware\Handler;
+
 abstract class BaseController
 {
 
@@ -47,23 +49,13 @@ abstract class BaseController
     { 
         $class = get_called_class();
         $request = app('request');
+
         $next = function($request) use ($class, $closure, $params) {
-            return app()->call("$class@$closure", ['data' => $params]);
+            return  app()->call("$class@$closure", $params);
         };
 
-        $middlewares = $this->getMiddleware();
-        if($middlewares)
-        {
-            foreach ($middlewares as $middleware) 
-            {
-                $next = function($request) use ($middleware, $next)
-                {
-                    return app($middleware)->handle($request, $next);
-                };
-                        
-            }
-
-        }
+        // Run all the middlewares
+        Handler::evaluate($this->getMiddleware(), $next);
 
         return $next($request);
     }

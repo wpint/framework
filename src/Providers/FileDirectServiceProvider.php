@@ -2,7 +2,7 @@
 namespace WPINT\Framework\Providers;
 
 use WPINT\Framework\Foundation\Application;
-use Illuminate\Support\ServiceProvider;
+use WPINT\Framework\ServiceProvider;
 use WP_Filesystem_Direct;
 
 class FileDirectServiceProvider extends ServiceProvider

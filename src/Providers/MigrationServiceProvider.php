@@ -3,7 +3,7 @@ namespace WPINT\Framework\Providers;
 
 use WPINT\Framework\Foundation\Application;
 use WPINT\Framework\Include\Migration\Migration;
-use Illuminate\Support\ServiceProvider;
+use WPINT\Framework\ServiceProvider;
 
 class MigrationServiceProvider extends ServiceProvider
 {

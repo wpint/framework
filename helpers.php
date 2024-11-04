@@ -11,7 +11,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use Illuminate\Contracts\View\Factory as ViewFactory;
-use Illuminate\Foundation\Mix;
+// use Illuminate\Foundation\Mix;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\HtmlString;
 
@@ -457,22 +457,6 @@ if (! function_exists('method_field')) {
     function method_field($method)
     {
         return new HtmlString('<input type="hidden" name="_method" value="'.$method.'">');
-    }
-}
-
-if (! function_exists('mix')) {
-    /**
-     * Get the path to a versioned Mix file.
-     *
-     * @param  string  $path
-     * @param  string  $manifestDirectory
-     * @return \Illuminate\Support\HtmlString|string
-     *
-     * @throws \Exception
-     */
-    function mix($path, $manifestDirectory = '')
-    {
-        return app(Mix::class)(...func_get_args());
     }
 }
 

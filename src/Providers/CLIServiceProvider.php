@@ -1,10 +1,9 @@
 <?php 
 namespace WPINT\Framework\Providers;
 
-use Illuminate\Support\Facades\File;
 use WPINT\Framework\Foundation\Application;
-use Illuminate\Support\ServiceProvider;
-use WP_CLI;
+use WPINT\Framework\ServiceProvider;
+use WPINT\Framework\Include\CLI;
 
 class CLIServiceProvider extends ServiceProvider
 {
@@ -16,8 +15,20 @@ class CLIServiceProvider extends ServiceProvider
     public function register() : void 
     {
         $this->app->singleton('cli', function(Application $app){
-            return  new WP_CLI();
+            return  new CLI();
         });
+    }
+
+    /**
+     * Boot method
+     *
+     * @return void
+     */
+    public function boot() : void
+    {
+    
+        $this->app->make('cli')->register();
+    
     }
 
 }

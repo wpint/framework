@@ -172,20 +172,21 @@ class Application extends Container implements FoundationApplication
             $this->setBasePath($basePath);
         }
         
-        do_action('wpfm_init', $this);
+        do_action('wpint_init', $this);
         $this->registerBaseBindings();
         $this->registerBaseServiceProviders();
         $this->registerCoreContainerAliases();
         
-        do_action('wpfm_before_load_configuration', $this);
+        do_action('wpint_before_load_configuration', $this);
+        (new LoadEnvironmentVariables())->bootstrap($this);
         (new LoadConfiguration())->bootstrap($this);
         (new BootProviders)->bootstrap($this);
         (new RegisterFacades)->bootstrap($this);
 
-        do_action('wpfm_before_register_configured_providers', $this);
+        do_action('wpint_before_register_configured_providers', $this);
         $this->registerConfiguredProviders();
 
-        do_action('wpfm_initialized', $this);
+        do_action('wpint_initialized', $this);
 
         RouteCollector::make();
 
@@ -371,7 +372,7 @@ class Application extends Container implements FoundationApplication
      * Set the application directory.
      *
      * @param  string  $path
-     * @return $this
+     * @return $thisnamespace WPINT\Framework\Foundation;
      */
     public function useAppPath($path)
     {
@@ -692,7 +693,7 @@ class Application extends Container implements FoundationApplication
             return $registered;
         }
         
-        do_action('wpfm_before_register_provider', $provider);
+        do_action('wpint_before_register_provider', $provider);
         // If the given "provider" is a string, we will resolve it, passing in the
         // application instance automatically for the developer. This is simply
         // a more convenient way of specifying your service provider classes.
@@ -721,8 +722,8 @@ class Application extends Container implements FoundationApplication
 
         
         $class = new ReflectionClass($provider);
-        do_action('wpfm_after_register_provider', $provider);
-        do_action('wpfm_after_register_provider_' . $class->getShortName(), $this);
+        do_action('wpint_after_register_provider', $provider);
+        do_action('wpint_after_register_provider_' . $class->getShortName(), $this);
         
         // If the application has already booted, we will call this boot method on
         // the provider class so it has an opportunity to do its boot logic and

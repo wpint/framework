@@ -5,11 +5,14 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "WPINT\\Framework\\": "src/"
+            "WPINT\\Framework\\":  "src/"
         },
         "files": [
             "./helpers.php"
         ]
+    },
+    "replace": {
+
     },
     "authors": [
         {

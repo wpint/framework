@@ -1,32 +1,24 @@
 <?php 
 namespace WPINT\Framework\Console;
 
-use Wpint\Contracts\Console\ConsoleContract;
 use Wpint\Support\Facades\CLI;
 
-class DatabaseCommand extends Command implements ConsoleContract
+class DatabaseCommand extends Command
 {
 
+    /**
+     * Base Command name
+     *
+     * @var string
+     */
     public string $command = 'database';
 
-    private $class = null;
-
     /**
-     * command logic
+     * The target class
      *
-     * @param [type] $args
-     * @param [type] $assoc_args
-     * @return void
+     * @var [type]
      */
-    public function handle($args, $assoc_args)
-    {
-
-        $this->class =  isset($assoc_args['class']) ? $assoc_args['class'] : null ;
-
-        if($args)
-            $this->{$args[0]}(); 
-    }
-
+    private $class = null;
 
     /**
      * db Seed command
@@ -34,9 +26,9 @@ class DatabaseCommand extends Command implements ConsoleContract
      *  
      * @return void
      */
+    #[SubCommandAttribute]
     private function seed()
     {
-        
         CLI::log("Seeding the database ....");
         
         if($this->class)
@@ -47,7 +39,4 @@ class DatabaseCommand extends Command implements ConsoleContract
         CLI::success("Your database has seeded successfuly.");
     }
     
-
-
-
 }       

@@ -3,7 +3,7 @@ namespace WPINT\Framework\Providers;
 
 use Illuminate\Config\Repository;
 use WPINT\Framework\Foundation\Application;
-use Illuminate\Support\ServiceProvider;
+use WPINT\Framework\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

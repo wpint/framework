@@ -4,6 +4,7 @@ namespace WPINT\Framework\Include\Migration;
 use Illuminate\Support\Facades\App;
 use Wpint\Support\Facades\WPFileDirect;
 use Wpint\Support\ClassExtractor;
+use Wpint\Support\Facades\WPFile;
 
 /**
  * @method \WPINT\Framework\Services\Migration\Migration up()
@@ -25,7 +26,7 @@ class Migration
 
         if($classes)
         {
-            collect($classes)->each(fn($class) => $class::up());
+            collect($classes)->each(fn($class) => class_exists($class) && method_exists($class, 'up') ? $class::up() : '');
             return;
         } 
 
@@ -33,7 +34,7 @@ class Migration
         foreach ($files as $name => $meta) 
         {
             $class = ClassExtractor::getClassFromFile($name, self::dbDir());
-            if($class)
+            if(class_exists($class) && method_exists($class, 'up'))
             {
                 $class::up();                               
             }
@@ -52,7 +53,7 @@ class Migration
 
         if($classes) 
         {
-            collect($classes)->each(fn($class) => $class::down());
+            collect($classes)->each(fn($class) => class_exists($class) && method_exists($class, 'down') ? $class::down() : '');
             return;
         }
 
@@ -60,7 +61,7 @@ class Migration
         foreach ($files as $name => $meta) 
         {
             $class = ClassExtractor::getClassFromFile($name, self::dbDir());
-            if($class)
+            if(class_exists($class) && method_exists($class, 'down'))
             {
                 $class::down();                               
             }
@@ -92,4 +93,5 @@ class Migration
     }
 
     
+
 }
