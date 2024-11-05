@@ -63,7 +63,8 @@ class CLI extends WP_CLI
                 foreach($attributes as $attr)
                 {
                     $attrInstance = $attr->newInstance();
-                    $hooks = array_merge($attrInstance->args, $hooks);
+                    if($attrInstance->args)
+                        $hooks = array_merge($attrInstance->args, $hooks);
                 }
             }
             $this::add_command( $instance->command, $instance, $hooks );

@@ -20,7 +20,7 @@ class Vite
      * @see https://inertiajs.com/server-side-setup#root-template
      * @var string
      */
-    protected  string $rootView =   'app';
+    protected static  string $rootView =   'app';
 
     /**
      * The root ID in the rootView.
@@ -29,7 +29,6 @@ class Vite
      * @var string
      */
     protected string $rootID =   'app';
-
 
     /**
      * Vite's host
@@ -43,10 +42,10 @@ class Vite
      *
      * @var [type]
      */
-    protected string $port = '1337';
+    protected string $port = '5173';
 
     /**
-     * The Vite's typescript configuration
+     * Thze Vite's typescript configuration
      *
      * @var boolean
      */
@@ -59,6 +58,7 @@ class Vite
      */
     public function __construct()
     {
+
         // blade directive based on env
         Blade::directive('script', function () {
             return $this->scriptElements();
@@ -76,7 +76,7 @@ class Vite
      */
     public function rootElement()
     {
-        return '<div id="'.$this->rootID.'" data-page="{{ json_encode($page) }}"></div>';
+        return '<div id="'.$this->rootID().'" data-page="{{ json_encode($page) }}"></div>';
     }
 
     /**
@@ -114,7 +114,7 @@ class Vite
      */
     private  function root()
     {
-        return $this->typescript ? $this->rootView . '.tsx' : $this->rootView . '.jsx';
+        return $this->isTypescript() ? $this->rootView() . '.tsx' : $this->rootView() . '.jsx';
     }
 
     /**
@@ -124,7 +124,66 @@ class Vite
      */
     private  function connection()
     {
-        return $this->host.":".$this->port;
+        return $this->host().":".$this->port();
     } 
 
+    /**
+     * server Host 
+     *
+     * @return void
+     */
+    private function host()
+    {
+        return env('VITE_HOST', $this->host);   
+    }
+
+    /**
+     * server port
+     *
+     * @return void
+     */
+    private function port()
+    {
+        return env('VITE_PORT', $this->port);   
+    }
+    
+    /**
+     * Is typescript or not
+     *
+     * @return boolean
+     */
+    private function isTypescript()
+    {
+        return env('VITE_TYPESCRIPT', $this->typescript);   
+    }
+    
+    /**
+     * Root ID
+     *
+     * @return void
+     */
+    private function rootID()
+    {
+        return env('VITE_ROOT_ID', $this->rootID);   
+    }
+
+    /**
+     * Root View
+     *
+     * @return void
+     */
+    public static function rootView()
+    {
+        return env('VITE_ROOT_VIEW', self::$rootView);   
+    }
+
+    /**
+     * Vite's Output Directory 
+     *
+     * @return void
+     */
+    public static function outDir()
+    {
+        return env('VITE_OUT_DIR', self::$outDir);   
+    }
 }
