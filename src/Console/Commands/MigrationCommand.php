@@ -1,9 +1,13 @@
 <?php 
-namespace WPINT\Framework\Console;
+namespace WPINT\Framework\Console\Commands;
 
+use WPINT\Framework\Console\Command;
+use WPINT\Framework\Console\CommandAttribute;
+use WPINT\Framework\Console\SubCommandAttribute;
 use Wpint\Support\Facades\CLI;
 use Wpint\Support\Facades\Migration;
 
+#[CommandAttribute(['shortdesc' => 'WPINT: Migrate constructed tables in the wpint framework'])]
 class MigrationCommand extends Command
 {   
 
@@ -19,7 +23,7 @@ class MigrationCommand extends Command
      *
      * @return void
      */
-    #[SubCommandAttribute]
+    #[SubCommandAttribute('Creates all tables that constructed in wpint framework')]
     private function up()
     {
         CLI::log("Creating the tables ....");
@@ -33,12 +37,12 @@ class MigrationCommand extends Command
      *
      * @return void
      */
-    #[SubCommandAttribute]
+    #[SubCommandAttribute('Drops all tables that constructed in wpint framework')]
     private function down()
     {
-        CLI::log("Removing the tables ....");
+        CLI::log("Dropint the tables ....");
         Migration::down();
-        CLI::success("the tables has been removed successfuly.");
+        CLI::success("the tables has been droped successfuly.");
     }
 
     /**
@@ -46,7 +50,7 @@ class MigrationCommand extends Command
      *
      * @return void
      */
-    #[SubCommandAttribute]
+    #[SubCommandAttribute('Runs down and up commands respectively')]
     private function refresh()
     {
         CLI::log("Refreshing the database ....");

@@ -94,7 +94,14 @@ abstract class Command
             $atts = $m->getAttributes(SubCommandAttribute::class);
             if(count($atts) > 0)
             {
-                CLI::log(CLI::colorize("%G ".$m->getName()." %n"));
+                $text = CLI::colorize("%G ".$m->getName()." %n") ;
+                foreach($atts as $att)
+                {
+                    $instance = $att->newInstance();
+                    $descArg = $instance->description ?? ' ';
+                    $text .= ' ' . $descArg;
+                }
+                CLI::log($text);
             }
         });
     }

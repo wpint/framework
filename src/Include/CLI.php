@@ -4,6 +4,10 @@ namespace WPINT\Framework\Include;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 use WP_CLI;
+use WPINT\Framework\Console\CommandAttribute;
+use WPINT\Framework\Console\Commands\DatabaseCommand;
+use WPINT\Framework\Console\Commands\MigrationCommand;
+use WPINT\Framework\Console\Commands\VendorCommand;
 
 class CLI extends WP_CLI
 {
@@ -13,15 +17,19 @@ class CLI extends WP_CLI
      *
      * @var array
      */
-    protected $commands = [];
+    protected $commands = [
+        MigrationCommand::class,
+        DatabaseCommand::class,    
+        VendorCommand::class, 
+    ];
 
     /**
-     * The construct method
+     * The construct methodq
      */
     public function __construct()
     {
         $commands = config('cli.commands');
-        $this->commands = $commands;
+        $this->commands = array_merge($commands, $this->commands);
     } 
 
     /**
@@ -48,7 +56,16 @@ class CLI extends WP_CLI
                     $m->hook => [$instance, $m->name]
                 ];
             })->all();
-            
+            // attach attributes
+            $attributes = $class->getAttributes(CommandAttribute::class);
+            if(count($attributes) > 0)
+            {
+                foreach($attributes as $attr)
+                {
+                    $attrInstance = $attr->newInstance();
+                    $hooks = array_merge($attrInstance->args, $hooks);
+                }
+            }
             $this::add_command( $instance->command, $instance, $hooks );
 
         }); 
@@ -67,7 +84,7 @@ class CLI extends WP_CLI
 
     protected function getProvidersCommands()
     {
-        $providers = config('app.providers');
+            $providers = config('app.providers');
             if($providers)
             {
                 foreach($providers as $provider)

@@ -1,9 +1,13 @@
 <?php 
-namespace WPINT\Framework\Console;
+namespace WPINT\Framework\Console\Commands;
 
+use WPINT\Framework\Console\Command;
+use WPINT\Framework\Console\CommandAttribute;
+use WPINT\Framework\Console\SubCommandAttribute;
 use Wpint\Support\Facades\CLI;
 use Wpint\Support\Facades\WPFileDirect;
 
+#[CommandAttribute(['shortdesc' => 'WPINT: Packages related command'])]
 class VendorCommand extends Command
 {
 
@@ -25,7 +29,7 @@ class VendorCommand extends Command
      *
      * @return void
      */
-    #[SubCommandAttribute]
+    #[SubCommandAttribute('publish the packages\' files into the plugin')]
     protected function publish()
     {
         CLI::log("Publishing vendors' config....");

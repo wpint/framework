@@ -1,8 +1,12 @@
 <?php 
-namespace WPINT\Framework\Console;
+namespace WPINT\Framework\Console\Commands;
 
+use WPINT\Framework\Console\Command;
+use WPINT\Framework\Console\CommandAttribute;
+use WPINT\Framework\Console\SubCommandAttribute;
 use Wpint\Support\Facades\CLI;
 
+#[CommandAttribute(['shortdesc' => 'WPINT: database related command'])]
 class DatabaseCommand extends Command
 {
 
@@ -26,7 +30,7 @@ class DatabaseCommand extends Command
      *  
      * @return void
      */
-    #[SubCommandAttribute]
+    #[SubCommandAttribute('runs exsiting seeders in wpint framework')]
     private function seed()
     {
         CLI::log("Seeding the database ....");

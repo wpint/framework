@@ -7,6 +7,7 @@ use WPINT\Framework\Include\CLI;
 
 class CLIServiceProvider extends ServiceProvider
 {
+
     /**
      * Register CLI service.
      *
