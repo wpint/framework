@@ -43,7 +43,7 @@ class CLI extends WP_CLI
         {
             $class = new ReflectionClass($c);
             $instance = $class->newInstance();
-            $methods = Collect($class->getMethods());
+            $methods = collect($class->getMethods());
             $hooks = $methods->filter(function($m) {
                 preg_match("/^hook_(\w+)/", $m->name, $match);
                 if($match) {
