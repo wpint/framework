@@ -47,17 +47,16 @@ abstract class BaseController
      */
     public function callAction($closure, array $params = []) : mixed
     { 
+     
         $class = get_called_class();
-        $request = app('request');
+        $middlewares = collect($this->getMiddleware());
 
-        $next = function($request) use ($class, $closure, $params) {
+        $final = function($request) use ($class, $closure, $params) {
             return  app()->call("$class@$closure", $params);
         };
 
-        // Run all the middlewares
-        Handler::evaluate($this->getMiddleware(), $next);
+        return Handler::evaluate($middlewares, $final);
 
-        return $next($request);
     }
 
 

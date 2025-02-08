@@ -28,17 +28,18 @@ abstract class Handler implements MiddlewareContract
      * @param [type] $next
      * @return void
      */
-    public static function  evaluate($middlewares, $next)
+    public static function  evaluate($middlewares, $final) : mixed
     {
-        if(!$middlewares) return ;
-        foreach ($middlewares as $middleware) 
-        {
-            $next = function($request) use ($middleware, $next)
-            {
+        $request = app('request');
+        if(!$middlewares) $final($request);
+
+        $chain = $middlewares->reverse()->reduce(function($next, $middleware){
+            return function ($request) use ($middleware, $next) {
                 return app($middleware)->handle($request, $next);
             };
-                    
-        }
+        }, $final );
+
+        return $chain($request);
 
     } 
 

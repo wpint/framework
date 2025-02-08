@@ -90,7 +90,15 @@ class Vite
         {
             $connection = $this->connection();
             $root = $this->root();
+            $react_refresh = '<script type="module">
+                import RefreshRuntime from "'.$connection.'/@react-refresh"
+                RefreshRuntime.injectIntoGlobalHook(window)
+                window.$RefreshReg$ = () => {}
+                window.$RefreshSig$ = () => (type) => type
+                window.__vite_plugin_react_preamble_installed__ = true
+            </script> ';
             return <<<EOT
+                $react_refresh
                 <script type="module" src="$connection/@vite/client"></script>
                 <script type="module" src="$connection/resources/scripts/src/$root"></script>
                 <?php if (isset(\$page) && isset(\$page['headManager']) && \$page['headManager']->tags()): ?>
