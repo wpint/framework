@@ -36,9 +36,9 @@
         "fakerphp/faker": "^1.23",
         "illuminate/validation": "^10.39",
         "wpint/contracts": "^1.0.0",
-        "wpint/route": "^1.0.0",
-        "wpint/wpapi": "^1.0.0",
-        "wpint/support": "^1.0.0",
+        "wpint/route": "^1.2.1",
+        "wpint/wpapi": "^1.2.0",
+        "wpint/support": "^1.2.0",
         "wpint/jwt": "^1.0.0"
     }
     
