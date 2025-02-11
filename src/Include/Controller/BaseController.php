@@ -47,14 +47,11 @@ abstract class BaseController
      */
     public function callAction($closure, array $routeMiddlewares = [], array $params = []) : mixed
     { 
-     
         $class = get_called_class();
-        $middlewares = collect($class::getMiddleware());
-        $middlewares = $middlewares->merge($routeMiddlewares);
+        $middlewares = array_merge($class::getMiddleware(), $routeMiddlewares);
         $final = function($request) use ($class, $closure, $params) {
             return  app()->call("$class@$closure", $params);
         };
-
         return Handler::evaluate($middlewares, $final);
     }
 

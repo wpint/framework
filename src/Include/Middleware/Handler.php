@@ -30,16 +30,16 @@ abstract class Handler implements MiddlewareContract
      */
     public static function  evaluate($middlewares, $final) : mixed
     {
-        $request = app('request');
-        if(!$middlewares) $final($request);
-
+        $middlewares = collect($middlewares);
+        if($middlewares->count() === 0) return $final(request());
+        
         $chain = $middlewares->reverse()->reduce(function($next, $middleware){
             return function ($request) use ($middleware, $next) {
                 return app($middleware)->handle($request, $next);
             };
         }, $final );
 
-        return $chain($request);
+        return $chain(request());
 
     } 
 
